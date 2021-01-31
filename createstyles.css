@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Nova+Mono&family=Open+Sans&display=swap');
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.menu {
+    width: 100%;
+    background-color: #134FA1;
+    height: 60px;
+    justify-content: space-between;
+    display: flex;
+    position: fixed;
+    z-index: 2;
+}
+
+.profile {
+    width: 70px;
+    height: 100%;
+    background-color: #0E2B54;
+}
+
+.profile:hover+.moreprofile {
+    visibility: visible;
+}
+
+.moreprofile:hover {
+    visibility: visible;
+}
+
+.voting:hover,
+.choices:hover {
+    box-shadow: 0px 10px 37px 0px rgba(0, 0, 0, 0.4);
+}
+
+.moreprofile {
+    visibility: hidden;
+    margin-top: 60px;
+    margin-left: 80%;
+    position: absolute;
+    height: 300px;
+    width: 20%;
+    background-color: #0E2B54;
+}
+
+.create {
+    width: 200px;
+    height: 100%;
+    background-color: #0E2B54;
+}
+
+main {
+    padding-top: 140px;
+}
+
+.votinginfo {
+    margin: auto;
+    position: relative;
+    width: 84%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.votingimagebox {
+    width: 27%;
+}
+
+.votingimage {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-color: #C4C4C4;
+}
+
+.textinfobox {
+    width: 60%;
+}
+
+.votingname {
+    text-transform: capitalize;
+    padding-top: 1%;
+    box-sizing: border-box;
+    padding-left: 2%;
+    resize: none;
+    font-family: "Anonymous Pro";
+    height: 27%;
+    color: white;
+    width: 100%;
+    position: relative;
+    background-color: #0069CC;
+}
+
+.sep1 {
+    height: 8%;
+    width: 100%;
+    /* background-color: #fff; */
+}
+
+.votingdescription {
+    text-transform: capitalize;
+    box-sizing: border-box;
+    padding-top: 1%;
+    padding-left: 2%;
+
+    color: white;
+    resize: none;
+    font-family: "Anonymous Pro";
+    height: 63%;
+    width: 100%;
+    position: relative;
+    background-color: #0069CC;
+}
+
+.votings {
+    margin: auto;
+    width: 84%;
+    margin-top: 60px;
+}
+
+.voting {
+    transition: 0.5s;
+    margin-top: 20px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    padding-left: 45px;
+    padding-right: 45px;
+    width: 100%;
+    height: auto;
+    background-color: #47A6FF;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.question {
+    margin-top: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    padding-top: 1%;
+    resize: none;
+    color: white;
+    text-transform: capitalize;
+    font-family: "Anonymous Pro";
+    height: 60px;
+    margin-bottom: 5px;
+    padding-left: 2%;
+    background-color: #0074E0;
+}
+
+.answer {
+    bottom: 0;
+    text-transform: capitalize;
+    padding-top: 1%;
+    height: 50px;
+    color: white;
+    font-family: "Anonymous Pro";
+    resize: none;
+    /* background-color: #888; */
+    box-sizing: border-box;
+    width: 85%;
+    padding-left: 2%;
+    background-color: #0074E0;
+}
+
+.delete {
+    width: 50px;
+    height: 50px;
+    background-color: #ff0000;
+    display: table;
+    cursor: pointer;
+}
+
+.answerbox {
+    margin-top: 15px;
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.choices {
+    width: 84%;
+    height: 70px;
+    background-color: #888;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+    transition: 0.5s;
+}
+
+.choice {
+    display: table;
+    width: 50%;
+    cursor: pointer;
+    height: 100%;
+    background-color: #0069CC;
+    /* transition: 0.5s; */
+    box-sizing: border-box;
+    border: 1px solid #0069CC;
+}
+
+.choice:hover {
+    border: 2px solid #000;
+}
+
+.note {}
+
+.notebox {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.remove {
+    height: 30px;
+    width: 30px;
+    display: table;
+    cursor: pointer;
+    margin-top: -30px;
+    margin-right: -40px;
+    background-color: #ff0000;
+}
+
+.answers {
+    position: relative;
+    height: auto;
+    margin: auto;
+}
+
+.saveedit {
+    /* position: absolute;
+    width: 18%;
+    height: 70px;
+    background-color: #00ff00;
+    margin-top: -75px;
+    margin-left: 70%; */
+    /* display: table;
+    width:18%; 
+    cursor: pointer;
+    right:0; 
+    bottom:4px;
+    height: 79px;
+    background-color:#0069CC; 
+    position:absolute; */
+    width: 18%;
+    background-color: #0069cc;
+    height: 35px;
+    cursor: pointer;
+    display: table;
+}
+
+.hiddendelete{
+    background-color: #111;
+    cursor: initial;
+}
+.buttonbox {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.newanswer {
+    width: 65%;
+    height: 35px;
+    background-color: #0069CC;
+    display: table;
+    cursor: pointer;
+}
+
+.notvisibleanswer {
+    visibility: hidden;
+}
+
+.edit {
+    background-color: #0069CC;
+}
+
+.save {
+    background-color: #ff0000;
+}
+
+.send {
+    width: 20%;
+    display: table;
+    height: 50px;
+    margin: auto;
+    cursor: pointer;
+    margin-top: 100px;
+    background-color: #111;
+}
+
+.whatissent {
+    width: 50%;
+    height: auto;
+    display: table;
+    margin: auto;
+    margin-top: 20px;
+}
+
+p {
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+    font-family: 'Anonymous Pro';
+    color: #fff;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.delete>p {
+    font-family: "Nova Mono";
+}
+
+.remove>p {
+    font-family: "Nova Mono";
+}
+
+footer {
+    width: 100%;
+    height: 80px;
+    background-color: #0E2B54;
+    margin-top: 40px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border: 1px solid #000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    height: 1%;
+    background: #0E2B54;
+    border: 1px solid #000;
+    opacity: 0.9;
+}

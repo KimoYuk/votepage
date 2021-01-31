@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="createstyles.css">
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <div class="create"></div>
+            <div class="profile"></div>
+            <div class="moreprofile"></div>
+        </div>
+    </header>
+    <main>
+        <div class="votinginfo">
+            <div class="votingimagebox">
+                <div class="votingimage"><input id="image-file" type="file" />
+                </div>
+            </div>
+            <div class="textinfobox">
+                <textarea class="votingname"></textarea>
+                <div class="sep1"></div>
+                <textarea class="votingdescription"></textarea>
+            </div>
+        </div>
+        <div class="votings">
+            <!-- <div class="voting">
+                <div class="note">
+                    <p>Тут пользователь сможет выбрать несколько вариантов ответа</p>
+                </div>
+                <textarea class="question" name="" id="" cols="30" rows="4"></textarea>
+                <div class="answers">
+                    <textarea class="answer" name="" id="" cols="30" rows="4"></textarea>
+                    <textarea class="answer" name="" id="" cols="30" rows="4"></textarea>
+                    <div class="saveedit"></div>
+                </div>
+                <div class="newanswer">
+                    <p>Добавить ответ</p>
+                </div>
+            </div> -->
+        </div>
+        <div class="choices">
+            <div class="choice manyanswers">
+                <p>Можно выбрать несколько</p>
+            </div>
+            <div class="choice oneanswer">
+                <p>Можно выбрать один</p>
+            </div>
+        </div>
+        <div class="send">
+            <p>Отправить</p>
+        </div>
+    </main>
+    <footer></footer>
+
+</body>
+<script>
+    let imagebox = document.getElementById("image-file")
+    imagebox.onchange = function () {
+        image = imagebox.files
+        console.log(image)
+    }
+    let buttont1 = document.getElementsByClassName('manyanswers')
+    let buttont2 = document.getElementsByClassName('oneanswer')
+    // console.log(buttont1)
+    buttont1[0].addEventListener('click', function (e) {
+        createVoting(1)
+    })
+    buttont2[0].addEventListener('click', function (e) {
+        createVoting(2)
+    })
+
+    function createVoting(type) {
+        let voting = document.createElement('div')
+        voting.classList.add('voting')
+        let notebox = document.createElement('div')
+        notebox.classList.add('notebox')
+        let note = document.createElement('div')
+        note.classList.add('note')
+        let text = document.createElement('p')
+        if (type == 1) {
+            text.innerHTML = 'Тут пользователь сможет выбрать несколько вариантов ответа'
+        } else if (type == 2) {
+            text.innerHTML = 'Тут пользователь сможет выбрать только один вариант ответа'
+        }
+        note.id = type
+        note.appendChild(text)
+        notebox.appendChild(note)
+        let remove = document.createElement('div')
+        remove.classList.add('remove')
+        remove.innerHTML = "<p>X</p>"
+        addListenerRemove(remove)
+
+        notebox.appendChild(remove)
+        voting.appendChild(notebox)
+        let question = document.createElement('textarea')
+        question.classList.add('question')
+        voting.appendChild(question)
+
+        let allanswers = document.createElement('div')
+        allanswers.classList.add('answers')
+
+        let answer1 = document.createElement('div')
+        answer1.classList.add('answerbox')
+        allanswers.appendChild(answer1)
+        let answer2 = document.createElement('div')
+        answer2.classList.add('answerbox')
+        allanswers.appendChild(answer2)
+
+        let delete1 = document.createElement('div')
+        delete1.classList.add('delete')
+        delete1.innerHTML = "<p>X</p>"
+        addListenerDel(delete1)
+        answer1.appendChild(delete1)
+
+        let delete2 = document.createElement('div')
+        delete2.classList.add('delete')
+        delete2.innerHTML = "<p>X</p>"
+        addListenerDel(delete2)
+        answer2.appendChild(delete2)
+
+        let textarea1 = document.createElement('textarea')
+        textarea1.classList.add('answer')
+        answer1.appendChild(textarea1)
+        let textarea2 = document.createElement('textarea')
+        textarea2.classList.add('answer')
+        answer2.appendChild(textarea2)
+        voting.appendChild(allanswers)
+
+        //buttontosave
+        let save = document.createElement('div')
+        save.classList.add('saveedit')
+        save.classList.add('save')
+        save.innerHTML = "<p>Сохранить</p>"
+        //buttontosave
+
+        //buttontoadd
+        let buttonbox = document.createElement('div')
+        buttonbox.classList.add('buttonbox')
+
+        let add = document.createElement('div')
+        add.classList.add('newanswer')
+        add.innerHTML = '<p>Добавить ответ</p>'
+        buttonbox.appendChild(add)
+        buttonbox.appendChild(save)
+        voting.appendChild(buttonbox)
+        //buttontoadd
+
+        let allvotings = document.getElementsByClassName('votings')[0]
+        allvotings.appendChild(voting)
+        addListenerSave(save)
+        addListenerAdd(add)
+    }
+    let saveedit = document.getElementsByClassName('saveedit')
+
+    function addListenerSave(button) {
+        // console.log(button.parentNode.getElementsByClassName('answer'))
+        button.addEventListener('click', function (e) {
+            let question = button.parentNode.parentNode.getElementsByClassName('question')[0].value
+            let answers = []
+            for (let answer of button.parentNode.parentNode.getElementsByClassName('answers')[0]
+                    .getElementsByClassName('answerbox')) {
+                console.log(answer.getElementsByClassName('answer')[0].value)
+                answers.push(answer.getElementsByClassName('answer')[0].value)
+            }
+            console.log(answers)
+            // console.log(button.parentNode.parentNode)
+            // console.log(button.parentNode.parentNode)
+            totext(button.parentNode.parentNode, question, answers, button.parentNode.parentNode
+                .getElementsByClassName('note')[0].id)
+        })
+    }
+
+    function addListenerEdit(button) {
+        // console.log(button.parentNode.getElementsByClassName('answer'))
+        button.addEventListener('click', function (e) {
+            let question = button.parentNode.parentNode.getElementsByClassName('question')[0].innerHTML
+            let answers = []
+            for (let answer of button.parentNode.parentNode.getElementsByClassName('answers')[0]
+                    .getElementsByClassName('answerbox')) {
+                answers.push(answer.getElementsByClassName('answer')[0].innerHTML)
+            }
+            console.log(answers)
+
+            // console.log(button.parentNode.parentNode)
+            // console.log(button.parentNode.parentNode)
+            tochange(button.parentNode.parentNode, question, answers, button.parentNode.parentNode
+                .getElementsByClassName('note')[0].id)
+        })
+    }
+
+    function totext(parentnode, questiontxt, answers, type) {
+        while (parentnode.firstChild) {
+            parentnode.removeChild(parentnode.firstChild);
+        }
+        let notebox = document.createElement('div')
+        notebox.classList.add('notebox')
+        let note = document.createElement('div')
+        note.classList.add('note')
+        let text = document.createElement('p')
+        if (type == 1) {
+            text.innerHTML = 'Тут пользователь сможет выбрать несколько вариантов ответа'
+        } else if (type == 2) {
+            text.innerHTML = 'Тут пользователь сможет выбрать только один вариант ответа'
+        }
+        note.id = type
+        note.appendChild(text)
+        notebox.appendChild(note)
+        let remove = document.createElement('div')
+        remove.classList.add('remove')
+        remove.innerHTML = "<p>X</p>"
+        addListenerRemove(remove)
+        notebox.appendChild(remove)
+        parentnode.appendChild(notebox)
+        let question = document.createElement('div')
+        question.classList.add('question')
+        question.innerHTML = questiontxt
+        parentnode.appendChild(question)
+        let allanswers = document.createElement('div')
+        allanswers.classList.add('answers')
+        parentnode.appendChild(allanswers)
+        console.log('d', answers)
+
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i] != "") {
+
+                let answer = document.createElement('div')
+                answer.classList.add('answerbox')
+                let delete1 = document.createElement('div')
+                delete1.classList.add('delete')
+                delete1.classList.add('hiddendelete')
+
+                answer.appendChild(delete1)
+                let textarea1 = document.createElement('div')
+                textarea1.classList.add('answer')
+                textarea1.innerHTML = answers[i]
+                answer.appendChild(textarea1)
+                allanswers.appendChild(answer)
+            }
+        }
+
+        //buttontoedit
+        let edit = document.createElement('div')
+        edit.classList.add('saveedit')
+        let text1 = document.createElement('p')
+        edit.appendChild(text1)
+        edit.classList.add('edit')
+        text1.innerHTML = "Редактировать"
+        //buttontoedit
+        parentnode.appendChild(allanswers)
+
+        let buttonbox = document.createElement('div')
+        buttonbox.classList.add('buttonbox')
+
+        let add = document.createElement('div')
+        add.classList.add('newanswer')
+        add.classList.add('notvisibleanswer')
+
+        buttonbox.appendChild(add)
+        buttonbox.appendChild(edit)
+        parentnode.appendChild(buttonbox)
+        // parentnode.appendChild(node)
+        addListenerEdit(edit)
+    }
+
+    function tochange(parentnode, questiontxt, answers, type) {
+        while (parentnode.firstChild) {
+            parentnode.removeChild(parentnode.firstChild);
+        }
+        let notebox = document.createElement('div')
+        notebox.classList.add('notebox')
+        let note = document.createElement('div')
+        note.classList.add('note')
+        let text = document.createElement('p')
+        if (type == 1) {
+            text.innerHTML = 'Тут пользователь сможет выбрать несколько вариантов ответа'
+        } else if (type == 2) {
+            text.innerHTML = 'Тут пользователь сможет выбрать только один вариант ответа'
+        }
+        note.id = type
+        note.appendChild(text)
+        notebox.appendChild(note)
+        let remove = document.createElement('div')
+        remove.classList.add('remove')
+        remove.innerHTML = "<p>X</p>"
+        addListenerRemove(remove)
+
+        notebox.appendChild(remove)
+        parentnode.appendChild(notebox)
+        let question = document.createElement('textarea')
+        question.classList.add('question')
+        question.innerHTML = questiontxt
+        parentnode.appendChild(question)
+        let allanswers = document.createElement('div')
+        allanswers.classList.add('answers')
+        parentnode.appendChild(allanswers)
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i] != "") {
+
+                let answer = document.createElement('div')
+                answer.classList.add('answerbox')
+                let delete1 = document.createElement('div')
+                delete1.classList.add('delete')
+                delete1.innerHTML = "<p>X</p>"
+                addListenerDel(delete1)
+                answer.appendChild(delete1)
+
+                let textarea1 = document.createElement('textarea')
+                textarea1.classList.add('answer')
+                textarea1.innerHTML = answers[i]
+                answer.appendChild(textarea1)
+
+                allanswers.appendChild(answer)
+            }
+        }
+        //buttontosave
+        let save = document.createElement('div')
+        save.classList.add('saveedit')
+        let text1 = document.createElement('p')
+        save.appendChild(text1)
+        save.classList.add('save')
+
+        text1.innerHTML = "Сохранить"
+        allanswers.appendChild(save)
+        //buttontosave
+        parentnode.appendChild(allanswers)
+        //buttontoadd
+        let buttonbox = document.createElement('div')
+        buttonbox.classList.add('buttonbox')
+        let add = document.createElement('div')
+        add.classList.add('newanswer')
+        add.innerHTML = '<p>Добавить ответ</p>'
+        buttonbox.appendChild(add)
+        buttonbox.appendChild(save)
+        parentnode.appendChild(buttonbox)
+        //buttontoadd
+        addListenerAdd(add)
+        addListenerSave(save)
+    }
+
+    function addListenerAdd(button) {
+        button.addEventListener('click', function (e) {
+            if (button.parentNode.parentNode.getElementsByClassName('answers')[0].getElementsByClassName(
+                    'answerbox').length < 10) {
+                let answer = document.createElement('div')
+                answer.classList.add('answerbox')
+                let delete1 = document.createElement('div')
+                delete1.classList.add('delete')
+                delete1.innerHTML = "<p>X</p>"
+                addListenerDel(delete1)
+                answer.appendChild(delete1)
+                let textarea1 = document.createElement('textarea')
+                textarea1.classList.add('answer')
+                answer.appendChild(textarea1)
+                button.parentNode.parentNode.getElementsByClassName('answers')[0].appendChild(answer)
+            }
+            else{
+                alert('Максимум может быть 10 вариантов ответа')
+            }
+        })
+    }
+
+    function addListenerDel(button) {
+        button.addEventListener('click', function (e) {
+            button.parentNode.parentNode.removeChild(button.parentNode)
+        })
+    }
+
+    function addListenerRemove(button) {
+        button.addEventListener('click', function (e) {
+            button.parentNode.parentNode.parentNode.removeChild(button.parentNode.parentNode)
+        })
+    }
+
+
+    let send = document.getElementsByClassName('send')[0]
+    send.addEventListener('click', function (e) {
+        let votings = document.getElementsByClassName('voting')
+        let votinginfo = {}
+        votinginfo['name'] = document.getElementsByClassName('votingname')[0].value
+        votinginfo['about'] = document.getElementsByClassName('votingdescription')[0].value
+        // votinginfo['image']=image
+        let votingstosend = {}
+        let checker = 1
+        let iter = 1
+        for (let voting of votings) {
+            if (voting.getElementsByClassName('answers')[0].getElementsByClassName('answerbox').length >= 2) {
+                votingstosend[iter] = {}
+                votingstosend[iter]['type'] = voting.getElementsByClassName('note')[0].id
+                votingstosend[iter]['question'] = voting.getElementsByClassName('question')[0].innerHTML
+                let answers = []
+                for (let answer of voting.getElementsByClassName('answers')[0].getElementsByClassName(
+                        'answerbox')) {
+                    answers.push(answer.getElementsByClassName('answer')[0].innerHTML)
+                }
+                if (voting.getElementsByClassName('buttonbox')[0].getElementsByClassName('save').length) {
+                    checker = 0
+                }
+                votingstosend[iter]['answers'] = answers
+                iter += 1
+            } else {
+                alert('Если у вопроса меньше двух вариантов ответа - он не будет сохранен')
+            }
+        }
+        votinginfo['votings'] = votingstosend
+        if (checker) {
+            console.log(votinginfo)
+        } else {
+            alert('Пожалуйста, сохраните все поля')
+        }
+    })
+</script>
+
+</html>
